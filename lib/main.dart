@@ -1,5 +1,6 @@
-import 'package:demo_app/card.dart';
+import 'package:demo_app/temp_card.dart';
 import 'package:flutter/material.dart';
+import 'package:demo_app/card.dart'; // Make sure this import is correct
 
 void main() {
   runApp(MyApp());
@@ -19,11 +20,14 @@ class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
+
 class _HomeScreenState extends State<HomeScreen> {
   List<Item> items = [
-    Item(name: 'Sunny', svgPath: 'assets/sunny1.svg', backgroundImage: 'assets/sunny.jpg', amount: '\$100'),
-    Item(name: 'Snowy', svgPath: 'assets/snowy1.svg', backgroundImage: 'assets/snowy.jpg', amount: '\$200'),
-    Item(name: 'Cloudy', svgPath: 'assets/windy1.svg', backgroundImage: 'assets/windy.jpg', amount: '\$300'),
+    Item(name: 'Sunny', svgPath: 'assets/sunny1.svg', background: 'assets/sunny.png'),
+    Item(name: 'Snowy', svgPath: 'assets/snowy1.svg', background: 'assets/snowy.png'),
+    Item(name: 'Rainy', svgPath: 'assets/rain.svg', background: 'assets/windy.png'),
+    Item(name: 'Windy', svgPath: 'assets/windy1.svg', background: 'assets/wind.png'),
+    Item(name: 'Lightning', svgPath: 'assets/light1.svg', background: 'assets/light.png'),
   ];
 
   int _selectedItemIndex = 0;
@@ -32,51 +36,56 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      backgroundColor: const Color.fromARGB(255, 22, 21, 21), // Set the background color
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Positioned.fill(
-            child: Image.asset(
-              items[_selectedItemIndex].backgroundImage,
-              fit: BoxFit.cover,
-            ),
+          const SizedBox(height: 60),
+          GridCard(temperature: _temperature,),
+          Image.asset(
+            items[_selectedItemIndex].background,
+            fit: BoxFit.cover,
+            height: 150, // Adjust height as needed
           ),
-          Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  itemCount: items.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _selectedItemIndex = index;
-                          });
-                        },
-                        child: PaymentItem(
-                          title: items[index].name,
-                          svgPath: items[index].svgPath,
-                          amount: items[index].amount,
-                          category: "Category ${index + 1}",
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Slider(
-                value: _temperature,
-                min: 0,
-                max: 40,
-                onChanged: (value) {
-                  setState(() {
-                    _temperature = value;
-                  });
-                },
-              ),
-              Text('Temperature: ${_temperature.toStringAsFixed(1)} °C'),
-            ],
+          const SizedBox(height: 20),
+         
+          Slider(
+            value: _temperature,
+            min: 0,
+            max: 40,
+            onChanged: (value) {
+              setState(() {
+                _temperature = value;
+              });
+            },
+          ),
+          Text(
+            'Temperature: ${_temperature.toStringAsFixed(1)} °C',
+            style: const TextStyle(color: Colors.white),
+          ),
+          const SizedBox(height: 20),
+          Expanded(
+            flex: 1,
+            child: ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 6, 15, 6),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _selectedItemIndex = index;
+                      });
+                    },
+                    child: PaymentItem(
+                      title: items[index].name,
+                      svgPath: items[index].svgPath,
+                      isSelected: index == _selectedItemIndex, // Pass isSelected parameter
+                    ),
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -87,8 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
 class Item {
   String name;
   String svgPath;
-  String backgroundImage;
-  String amount;
+  String background;
 
-  Item({required this.name, required this.svgPath, required this.backgroundImage, required this.amount});
+  Item({required this.name, required this.svgPath, required this.background});
 }

@@ -1,39 +1,39 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class PaymentItem extends StatelessWidget {
   final String title;
-  final String? category;
   final String svgPath;
-  final String amount;
+  final bool isSelected;
 
-  const PaymentItem(
-      {Key? key,
-      required this.title,
-      this.category,
-      required this.svgPath,
-      required this.amount})
-      : super(key: key);
+  const PaymentItem({
+    Key? key,
+    required this.title,
+    required this.svgPath,
+    required this.isSelected,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(20)),
-          color: const Color(0xFF2c3135),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.white.withOpacity(0.05),
-                offset: const Offset(-10, -10),
-                spreadRadius: 0,
-                blurRadius: 10),
-            BoxShadow(
-                color: Colors.black87.withOpacity(0.3),
-                offset: const Offset(10, 10),
-                spreadRadius: 0,
-                blurRadius: 10)
-          ]),
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        color: isSelected ? Color.fromARGB(255, 18, 17, 17) : const Color(0xFF2c3135), // Highlight if selected
+        boxShadow: [
+          BoxShadow(
+            color: Colors.white.withOpacity(0.05),
+            offset: const Offset(-10, -10),
+            spreadRadius: 0,
+            blurRadius: 10,
+          ),
+          BoxShadow(
+            color: Colors.black87.withOpacity(0.3),
+            offset: const Offset(10, 10),
+            spreadRadius: 0,
+            blurRadius: 10,
+          ),
+        ],
+      ),
       child: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Row(
@@ -51,48 +51,37 @@ class PaymentItem extends StatelessWidget {
                   svgPath,
                   height: 28,
                   width: 28,
-                  color: Colors.white,
+                  color: isSelected ? Colors.yellow : Colors.white, // Highlight if selected
                 ),
               ),
             ),
             const SizedBox(
-              width: 16,
+              width: 60,
             ),
             Expanded(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                (category == null)
-                    ? const SizedBox.shrink()
-                    : Text(category!,
-                        style: TextStyle(
-                            color: Colors.yellow.shade200.withOpacity(0.7),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600))
-              ],
-            )),
-            Text(amount,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600))
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 }
-
 
 class NeumorphicCircle extends StatelessWidget {
   final bool innerShadow;
@@ -102,56 +91,64 @@ class NeumorphicCircle extends StatelessWidget {
   final Color backgroundColor;
   final Widget? child;
 
-  const NeumorphicCircle(
-      {Key? key,
-      required this.innerShadow,
-      required this.outerShadow,
-      required this.highlightColor,
-      required this.shadowColor,
-      required this.backgroundColor,
-      this.child})
-      : super(key: key);
+  const NeumorphicCircle({
+    Key? key,
+    required this.innerShadow,
+    required this.outerShadow,
+    required this.highlightColor,
+    required this.shadowColor,
+    required this.backgroundColor,
+    this.child,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(alignment: Alignment.center, children: [
-      Container(
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Container(
           decoration: BoxDecoration(
-              color: backgroundColor,
-              shape: BoxShape.circle,
-              boxShadow: (outerShadow)
-                  ? [
-                      BoxShadow(
-                          color: highlightColor,
-                          offset: const Offset(-10, -10),
-                          blurRadius: 20,
-                          spreadRadius: 0),
-                      BoxShadow(
-                          color: shadowColor,
-                          offset: const Offset(10, 10),
-                          blurRadius: 20,
-                          spreadRadius: 0)
-                    ]
-                  : null)),
-      (innerShadow)
-          ? ClipPath(
-              clipper: HighlightClipper(),
-              child: CircleInnerHighlight(
-                highlightColor: highlightColor,
-                backgroundColor: backgroundColor,
-              ))
-          : const SizedBox.shrink(),
-      (innerShadow)
-          ? ClipPath(
-              clipper: ShadowClipper(),
-              child: CircleInnerShadow(
-                shadowColor: shadowColor,
-                backgroundColor: backgroundColor,
-              ),
-            )
-          : const SizedBox.shrink(),
-      (child != null) ? child! : const SizedBox.shrink()
-    ]);
+            color: backgroundColor,
+            shape: BoxShape.circle,
+            boxShadow: (outerShadow)
+                ? [
+                    BoxShadow(
+                      color: highlightColor,
+                      offset: const Offset(-10, -10),
+                      blurRadius: 20,
+                      spreadRadius: 0,
+                    ),
+                    BoxShadow(
+                      color: shadowColor,
+                      offset: const Offset(10, 10),
+                      blurRadius: 20,
+                      spreadRadius: 0,
+                    ),
+                  ]
+                : null,
+          ),
+        ),
+        (innerShadow)
+            ? ClipPath(
+                clipper: HighlightClipper(),
+                child: CircleInnerHighlight(
+                  highlightColor: highlightColor,
+                  backgroundColor: backgroundColor,
+                ),
+              )
+            : const SizedBox.shrink(),
+        (innerShadow)
+            ? ClipPath(
+                clipper: ShadowClipper(),
+                child: CircleInnerShadow(
+                  shadowColor: shadowColor,
+                  backgroundColor: backgroundColor,
+                ),
+              )
+            : const SizedBox.shrink(),
+        (child != null) ? child! : const SizedBox.shrink(),
+      ],
+    );
   }
 }
 
@@ -159,9 +156,11 @@ class CircleInnerShadow extends StatelessWidget {
   final Color shadowColor;
   final Color backgroundColor;
 
-  const CircleInnerShadow(
-      {Key? key, required this.shadowColor, required this.backgroundColor})
-      : super(key: key);
+  const CircleInnerShadow({
+    Key? key,
+    required this.shadowColor,
+    required this.backgroundColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -182,12 +181,14 @@ class CircleInnerShadow extends StatelessWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                stops: const [0, 0.45],
-                colors: [backgroundColor.withOpacity(0), backgroundColor])),
+          shape: BoxShape.circle,
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            stops: const [0, 0.45],
+            colors: [backgroundColor.withOpacity(0), backgroundColor],
+          ),
+        ),
       ),
     );
   }
@@ -197,9 +198,11 @@ class CircleInnerHighlight extends StatelessWidget {
   final Color highlightColor;
   final Color backgroundColor;
 
-  const CircleInnerHighlight(
-      {Key? key, required this.highlightColor, required this.backgroundColor})
-      : super(key: key);
+  const CircleInnerHighlight({
+    Key? key,
+    required this.highlightColor,
+    required this.backgroundColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -220,12 +223,14 @@ class CircleInnerHighlight extends StatelessWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                stops: const [0.55, 1],
-                colors: [backgroundColor, backgroundColor.withOpacity(0)])),
+          shape: BoxShape.circle,
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            stops: const [0.55, 1],
+            colors: [backgroundColor, backgroundColor.withOpacity(0)],
+          ),
+        ),
       ),
     );
   }
