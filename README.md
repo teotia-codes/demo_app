@@ -12,11 +12,10 @@ This is a Flutter application that displays weather conditions and allows users 
 
 ## Screenshots
 
-![Home Screen](assets/screenshots/1.jpg)     ![Home Screen](assets/screenshots/2.jpg)
 
-
-![Home Screen](assets/screenshots/3.jpg)      ![Home Screen](assets/screenshots/4.jpg)
-![Home Screen](assets/screenshots/5.jpg)
+- **`<div style="display: flex; justify-content: center;">`**: Creates a flex container to align the images horizontally and center them.
+- **`<img src="assets/screenshots/home_screen.png" alt="Home Screen" width="300" />`**: Adds the image and sets its width to 300 pixels. Adjust the `width` attribute as needed to fit your design.
+  
 
 ## Getting Started
 
