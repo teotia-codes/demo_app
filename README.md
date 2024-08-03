@@ -26,7 +26,7 @@ To get a local copy up and running, follow these steps.
 
 1. Clone the repo:
    ```sh
-   git clone https://github.com/your-username/weather-app.git
+   git clone (https://github.com/teotia-codes/demo_app)
    ```
 2. Navigate to the project directory:
    ```sh
