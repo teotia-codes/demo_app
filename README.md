@@ -12,7 +12,11 @@ This is a Flutter application that displays weather conditions and allows users 
 
 ## Screenshots
 
-_Add screenshots of your app here._
+![Home Screen](assets/screenshots/1.jpg)
+![Home Screen](assets/screenshots/2.jpg)
+![Home Screen](assets/screenshots/3.jpg)
+![Home Screen](assets/screenshots/4.jpg)
+![Home Screen](assets/screenshots/5.jpg)
 
 ## Getting Started
 
