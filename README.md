@@ -163,7 +163,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Email -  priyanshu.teotia50@gmail.com
 
-Project Link: [https://github.com/your-username/weather-app](https://github.com/your-username/weather-app)](https://github.com/teotia-codes/demo_app/tree/main)
+Project Link: (https://github.com/teotia-codes/demo_app/tree/main)
 
 ---
 
