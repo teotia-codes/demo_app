@@ -14,7 +14,10 @@ This is a Flutter application that displays weather conditions and allows users 
 
 <div style="display: flex; justify-content: center;">
   <img src="assets/screenshots/1.jpg" alt="Home Screen" width="300" style="margin-right: 10px;" />
-  <img src="assets/screenshots/settings_screen.png" alt="Settings Screen" width="300" />
+  <img src="assets/screenshots/2.png" alt="Settings Screen" width="300" />
+  <img src="assets/screenshots/3.png" alt="Settings Screen" width="300" />
+  <img src="assets/screenshots/4.png" alt="Settings Screen" width="300" />
+  <img src="assets/screenshots/5.png" alt="Settings Screen" width="300" />
 </div>
   
 
