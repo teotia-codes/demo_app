@@ -26,11 +26,11 @@ To get a local copy up and running, follow these steps.
 
 1. Clone the repo:
    ```sh
-   git clone (https://github.com/teotia-codes/demo_app)
+   git clone https://github.com/teotia-codes/demo_app
    ```
 2. Navigate to the project directory:
    ```sh
-   cd weather-app
+   cd demo_app
    ```
 3. Install dependencies:
    ```sh
