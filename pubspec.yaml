@@ -36,6 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   flutter_svg: ^2.0.10+1
+  
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +72,7 @@ flutter:
     - assets/snowy1.svg
     - assets/light.png
     - assets/light1.svg
+    - assets/screenshots/
    
 
   #   - images/a_dot_burr.jpeg
