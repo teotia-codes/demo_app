@@ -160,4 +160,4 @@ Project Link: [https://github.com/your-username/weather-app](https://github.com/
 
 ---
 
-Feel free to modify and expand this template as needed for your project!
+
